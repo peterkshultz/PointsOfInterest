@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MapViewController.h"
 
 @interface AppDelegate ()
 
@@ -15,8 +16,23 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+
+    UINavigationController* navVC = [[UINavigationController alloc] init];
+    MapViewController* mapVC = [[MapViewController alloc] init];
+    mapVC.title = @"Map";
+    
+    [navVC setViewControllers:@[mapVC] animated:YES];
+    
+    self.window.rootViewController = mapVC;
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    NSLog(@"Did finish launching");
+
     return YES;
 }
 
