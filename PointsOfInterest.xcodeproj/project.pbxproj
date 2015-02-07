@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01C95A21A85629B00DDCABC /* Launch Screen.xib */; };
 		D03EEF541A82F5CF00444D78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF531A82F5CF00444D78 /* main.m */; };
 		D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF561A82F5CF00444D78 /* AppDelegate.m */; };
 		D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF591A82F5CF00444D78 /* ViewController.m */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D01C95A21A85629B00DDCABC /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		D03EEF4E1A82F5CF00444D78 /* PointsOfInterest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsOfInterest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D03EEF521A82F5CF00444D78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03EEF531A82F5CF00444D78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				D03EEF591A82F5CF00444D78 /* ViewController.m */,
 				D03EEF5E1A82F5CF00444D78 /* Images.xcassets */,
 				D03EEF511A82F5CF00444D78 /* Supporting Files */,
+				D01C95A21A85629B00DDCABC /* Launch Screen.xib */,
 			);
 			path = PointsOfInterest;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D03EEF5F1A82F5CF00444D78 /* Images.xcassets in Resources */,
+				D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

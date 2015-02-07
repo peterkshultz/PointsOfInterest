@@ -57,11 +57,24 @@
 #import "PlaceAnnotation.h"
 
 @interface MapViewController ()
-@property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) PlaceAnnotation *annotation;
+@property (nonatomic, strong) UILabel* label;
 @end
 
 @implementation MapViewController
+
+- (void) viewWillLayoutSubviews
+{    
+    self.mapView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+}
+
+- (void) viewDidLoad
+{
+    self.mapView = [[MKMapView alloc] init];
+    
+    [self.view addSubview:self.mapView];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {

@@ -18,11 +18,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    /*To add a map programmatically, create an instance of the MKMapView class, initialize it using the initWithFrame: method, and then add it as a subview to your window or view hierarchy. */
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     UINavigationController* navVC = [[UINavigationController alloc] init];
     MapViewController* mapVC = [[MapViewController alloc] init];
     mapVC.title = @"Map";
+    
+    MKMapView* mapView = [[MKMapView alloc] init];
+    
+    [mapView initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    
     
     [navVC setViewControllers:@[mapVC] animated:YES];
     
