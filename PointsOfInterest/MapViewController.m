@@ -56,30 +56,130 @@
 #import "MapViewController.h"
 #import "PlaceAnnotation.h"
 
-@interface MapViewController ()
+@interface MapViewController () <CLLocationManagerDelegate>
+
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) PlaceAnnotation *annotation;
-@property (nonatomic, strong) UILabel* label;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) UISearchBar *searchBar;
+//@property (nonatomic) BOOL initiallyCentered;
+@property (nonatomic) CLLocationCoordinate2D previousLocation;
 @end
 
 @implementation MapViewController
 
+
 - (void) viewWillLayoutSubviews
-{    
-    self.mapView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+{
+    self.searchBar.frame = CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, [UIScreen mainScreen].bounds.size.width, 50);
+    
+    self.mapView.frame = CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
 }
 
 - (void) viewDidLoad
 {
     self.mapView = [[MKMapView alloc] init];
-    
     [self.view addSubview:self.mapView];
+    self.mapView.showsUserLocation = YES;
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    self.searchBar = [[UISearchBar alloc] init];
+    [self.view addSubview:self.searchBar];
+    
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    
+//    self.initiallyCentered = false;
+    //Will call didUpdatedLocations
+    [self.locationManager startUpdatingLocation];
+    
+    //I think the problem is that I should call didUpdateToUserLocation, not didUpdateLocations
 }
+
+#pragma mark - Location Manager Delegate Methods
+
+- (void)mapView:(MKMapView *)theMapView didUpdateToUserLocation:(MKUserLocation *)location
+{
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"%@", [locations lastObject]);
+ 
+   [self zoomToUserLocation:self.mapView.userLocation];
+}
+
+- (void)requestAlwaysAuthorization
+{
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    
+    // If the status is denied or only granted for when in use, display an alert
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusDenied) {
+        NSString *title;
+        title = (status == kCLAuthorizationStatusDenied) ? @"Location services are off" : @"Background location is not enabled";
+        NSString *message = @"To use background location you must turn on 'Always' in the Location Services Settings";
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Settings", nil];
+        [alertView show];
+    }
+    // The user has not enabled any location services. Request background authorization.
+    else if (status == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        // Send the user to the Settings for this app
+        NSURL *settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:settingsURL];
+    }
+}
+
+- (void)zoomToUserLocation:(MKUserLocation *)userLocation
+{
+    if (!userLocation || (self.previousLocation.latitude == userLocation.location.coordinate.latitude && self.previousLocation.longitude == userLocation.location.coordinate.longitude))
+    {
+        return;
+    }
+    
+    
+    MKCoordinateRegion region;
+    region.center = userLocation.location.coordinate;
+    region.span = MKCoordinateSpanMake(0.0125, 0.0125); //Zoom distance
+    region = [self.mapView regionThatFits:region];
+    [self.mapView setRegion:region animated:YES];
+    
+    self.previousLocation = userLocation.location.coordinate;
+    
+    MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
+    request.naturalLanguageQuery = @"Restaurants";
+    request.region = self.mapView.region;
+    MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
+    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+        NSLog(@"Map Items: %@", response.mapItems);
+    }];
+}
+
+#pragma mark - viewDidAppear, viewDidDisappear, supportedInterfaceOrientations
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+        
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
     // adjust the map to zoom/center to the annotations we want to show

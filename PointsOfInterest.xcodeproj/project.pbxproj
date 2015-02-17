@@ -16,6 +16,7 @@
 		D03EEF781A82F8BC00444D78 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03EEF771A82F8BC00444D78 /* MapKit.framework */; };
 		D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF7A1A82FA2700444D78 /* MapViewController.m */; };
 		D03EEF7E1A82FAEF00444D78 /* PlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */; };
+		D06FD3101A89631A00275575 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		D03EEF7A1A82FA2700444D78 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		D03EEF7C1A82FAEF00444D78 /* PlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAnnotation.h; sourceTree = "<group>"; };
 		D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceAnnotation.m; sourceTree = "<group>"; };
+		D06FD30E1A89631A00275575 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				D03EEF561A82F5CF00444D78 /* AppDelegate.m */,
 				D03EEF791A82FA2700444D78 /* MapViewController.h */,
 				D03EEF7A1A82FA2700444D78 /* MapViewController.m */,
+				D06FD30E1A89631A00275575 /* SearchResultsTableViewController.h */,
+				D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */,
 				D03EEF7C1A82FAEF00444D78 /* PlaceAnnotation.h */,
 				D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */,
 				D03EEF581A82F5CF00444D78 /* ViewController.h */,
@@ -238,6 +243,7 @@
 				D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */,
 				D03EEF541A82F5CF00444D78 /* main.m in Sources */,
 				D03EEF7E1A82FAEF00444D78 /* PlaceAnnotation.m in Sources */,
+				D06FD3101A89631A00275575 /* SearchResultsTableViewController.m in Sources */,
 				D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

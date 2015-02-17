@@ -13,5 +13,7 @@
 
 @property (nonatomic, strong) NSArray *mapItemList;
 @property (nonatomic, assign) MKCoordinateRegion boundingRegion;
+@property (nonatomic, retain) CLLocation* initialLocation;
+
 
 @end

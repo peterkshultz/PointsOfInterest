@@ -6,6 +6,12 @@
 	<string>Launch Screen</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location is needed to determine where you are.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is needed to determine where you are.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

@@ -26,12 +26,6 @@
     MapViewController* mapVC = [[MapViewController alloc] init];
     mapVC.title = @"Map";
     
-    MKMapView* mapView = [[MKMapView alloc] init];
-    
-    [mapView initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    
-    
     [navVC setViewControllers:@[mapVC] animated:YES];
     
     self.window.rootViewController = mapVC;
