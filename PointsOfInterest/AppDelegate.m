@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MapViewController.h"
+#import "SearchResultsTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,16 +23,23 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    UINavigationController* navVC = [[UINavigationController alloc] init];
     MapViewController* mapVC = [[MapViewController alloc] init];
-    mapVC.title = @"Map";
+    SearchResultsTableViewController* searchTableVC = [[SearchResultsTableViewController alloc] init];
+
     
-    [navVC setViewControllers:@[mapVC] animated:YES];
+    UITabBarController* tabVC = [[UITabBarController alloc] init];
     
-    self.window.rootViewController = mapVC;
+    [mapVC setTitle:@"Map"];
+    [searchTableVC setTitle:@"Search Table"];
+    
+    [tabVC setViewControllers:@[mapVC, searchTableVC] animated:YES];
+    
+    self.window.rootViewController = tabVC;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
     
     NSLog(@"Did finish launching");
 

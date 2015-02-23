@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01C95A21A85629B00DDCABC /* Launch Screen.xib */; };
+		D0301BB11A97B0D1009434E7 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */; };
+		D0301BB41A97CB1C009434E7 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0301BB31A97CB1C009434E7 /* DataSource.m */; };
 		D03EEF541A82F5CF00444D78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF531A82F5CF00444D78 /* main.m */; };
 		D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF561A82F5CF00444D78 /* AppDelegate.m */; };
 		D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF591A82F5CF00444D78 /* ViewController.m */; };
@@ -15,8 +17,6 @@
 		D03EEF6E1A82F5D000444D78 /* PointsOfInterestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF6D1A82F5D000444D78 /* PointsOfInterestTests.m */; };
 		D03EEF781A82F8BC00444D78 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03EEF771A82F8BC00444D78 /* MapKit.framework */; };
 		D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF7A1A82FA2700444D78 /* MapViewController.m */; };
-		D03EEF7E1A82FAEF00444D78 /* PlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */; };
-		D06FD3101A89631A00275575 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +31,10 @@
 
 /* Begin PBXFileReference section */
 		D01C95A21A85629B00DDCABC /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		D0301BAF1A97B0D1009434E7 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
+		D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
+		D0301BB21A97CB1C009434E7 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
+		D0301BB31A97CB1C009434E7 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
 		D03EEF4E1A82F5CF00444D78 /* PointsOfInterest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsOfInterest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D03EEF521A82F5CF00444D78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03EEF531A82F5CF00444D78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,10 +49,6 @@
 		D03EEF771A82F8BC00444D78 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D03EEF791A82FA2700444D78 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		D03EEF7A1A82FA2700444D78 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		D03EEF7C1A82FAEF00444D78 /* PlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAnnotation.h; sourceTree = "<group>"; };
-		D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceAnnotation.m; sourceTree = "<group>"; };
-		D06FD30E1A89631A00275575 /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
-		D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +96,10 @@
 				D03EEF561A82F5CF00444D78 /* AppDelegate.m */,
 				D03EEF791A82FA2700444D78 /* MapViewController.h */,
 				D03EEF7A1A82FA2700444D78 /* MapViewController.m */,
-				D06FD30E1A89631A00275575 /* SearchResultsTableViewController.h */,
-				D06FD30F1A89631A00275575 /* SearchResultsTableViewController.m */,
-				D03EEF7C1A82FAEF00444D78 /* PlaceAnnotation.h */,
-				D03EEF7D1A82FAEF00444D78 /* PlaceAnnotation.m */,
+				D0301BB21A97CB1C009434E7 /* DataSource.h */,
+				D0301BB31A97CB1C009434E7 /* DataSource.m */,
+				D0301BAF1A97B0D1009434E7 /* SearchResultsTableViewController.h */,
+				D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */,
 				D03EEF581A82F5CF00444D78 /* ViewController.h */,
 				D03EEF591A82F5CF00444D78 /* ViewController.m */,
 				D03EEF5E1A82F5CF00444D78 /* Images.xcassets */,
@@ -242,9 +242,9 @@
 				D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */,
 				D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */,
 				D03EEF541A82F5CF00444D78 /* main.m in Sources */,
-				D03EEF7E1A82FAEF00444D78 /* PlaceAnnotation.m in Sources */,
-				D06FD3101A89631A00275575 /* SearchResultsTableViewController.m in Sources */,
+				D0301BB11A97B0D1009434E7 /* SearchResultsTableViewController.m in Sources */,
 				D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */,
+				D0301BB41A97CB1C009434E7 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

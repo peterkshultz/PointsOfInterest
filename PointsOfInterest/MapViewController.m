@@ -54,19 +54,85 @@
  */
 
 #import "MapViewController.h"
-#import "PlaceAnnotation.h"
+#import "SearchResultsTableViewController.h"
 
-@interface MapViewController () <CLLocationManagerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) PlaceAnnotation *annotation;
+@property (nonatomic, strong) NSString* searchBarString;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) UISearchBar *searchBar;
-//@property (nonatomic) BOOL initiallyCentered;
+@property (nonatomic, strong) MKLocalSearch* localSearch;
 @property (nonatomic) CLLocationCoordinate2D previousLocation;
+@property (nonatomic, strong) NSMutableArray* annotations;
 @end
 
 @implementation MapViewController
+
+- (void)startSearch:(NSString *)searchString
+{
+    self.searchBarString = searchString;
+    
+    if (self.localSearch.searching)
+    {
+        [self.localSearch cancel];
+    }
+    
+    // confine the map search area to the user's current location
+    MKCoordinateRegion newRegion;
+    newRegion.center.latitude = self.previousLocation.latitude;
+    newRegion.center.longitude = self.previousLocation.longitude;
+    
+    // setup the area spanned by the map region:
+    // we use the delta values to indicate the desired zoom level of the map,
+    //      (smaller delta values corresponding to a higher zoom level)
+    //
+    newRegion.span.latitudeDelta = 0.112872;
+    newRegion.span.longitudeDelta = 0.109863;
+    
+    
+    [[DataSource sharedInstance] performMKLocalSearch:searchString withRegion:self.mapView.region];
+    
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    
+    NSLog(@"Search button clicked!");
+    
+    [searchBar resignFirstResponder];
+    
+    //Check to see if Location Services is enabled, there are two state possibilities:
+    //1) disabled for entire device, 2) disabled just for this app
+    NSString *causeStr = nil;
+    
+    //Check whether location services are enabled on the device
+    if ([CLLocationManager locationServicesEnabled] == NO)
+    {
+        causeStr = @"device";
+    }
+    //Check the application’s explicit authorization status:
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied)
+    {
+        causeStr = @"application";
+    }
+    else
+    {
+        //Otherwise, let's start the search
+        [self startSearch:searchBar.text];
+    }
+    
+    if (causeStr != nil)
+    {
+        NSString *alertMessage = [NSString stringWithFormat:@"You currently have location services disabled for this %@. Please refer to \"Settings\" app to turn on Location Services.", causeStr];
+        
+        UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled"
+                                                                        message:alertMessage
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil];
+        [servicesDisabledAlert show];
+    }
+}
 
 
 - (void) viewWillLayoutSubviews
@@ -86,6 +152,8 @@
     self.locationManager.delegate = self;
     
     self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.delegate = self;
+    self.searchBar.searchBarStyle = UISearchBarStyleProminent;
     [self.view addSubview:self.searchBar];
     
     // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
@@ -93,12 +161,9 @@
         [self.locationManager requestWhenInUseAuthorization];
         [self.locationManager requestAlwaysAuthorization];
     }
-    
-//    self.initiallyCentered = false;
-    //Will call didUpdatedLocations
+
     [self.locationManager startUpdatingLocation];
     
-    //I think the problem is that I should call didUpdateToUserLocation, not didUpdateLocations
 }
 
 #pragma mark - Location Manager Delegate Methods
@@ -110,7 +175,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    NSLog(@"%@", [locations lastObject]);
+   // NSLog(@"%@", [locations lastObject]);
  
    [self zoomToUserLocation:self.mapView.userLocation];
 }
@@ -164,66 +229,37 @@
     
     self.previousLocation = userLocation.location.coordinate;
     
-    MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
-    request.naturalLanguageQuery = @"Restaurants";
-    request.region = self.mapView.region;
-    MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
-    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-        NSLog(@"Map Items: %@", response.mapItems);
-    }];
 }
 
-#pragma mark - viewDidAppear, viewDidDisappear, supportedInterfaceOrientations
+#pragma mark - supportedInterfaceOrientations, viewDidAppear
 
-
-- (void)viewDidAppear:(BOOL)animated
+- (void) searchResultTableViewControllerUpdated
 {
-    [super viewDidAppear:animated];
-        
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    SearchResultsTableViewController* searchResultsTVC = [[SearchResultsTableViewController alloc] init];
     
-    // adjust the map to zoom/center to the annotations we want to show
-    [self.mapView setRegion:self.boundingRegion];
+    self.annotations = [NSMutableArray new];
     
-    if (self.mapItemList.count == 1)
-    {
-        MKMapItem *mapItem = [self.mapItemList objectAtIndex:0];
-        
-        self.title = mapItem.name;
-        
-        // add the single annotation to our map
-        PlaceAnnotation *annotation = [[PlaceAnnotation alloc] init];
-        annotation.coordinate = mapItem.placemark.location.coordinate;
-        annotation.title = mapItem.name;
-        annotation.url = mapItem.url;
+    [searchResultsTVC initWithString:self.searchBarString andMapView:self.mapView];
+}
+
+- (void) mapItemsUpdated
+{
+    NSArray* mapItems = [DataSource sharedInstance].searchResponse.mapItems;
+    
+    [self.mapView removeAnnotations:self.annotations];
+    
+    self.annotations = [NSMutableArray new];
+    
+    for (MKMapItem* item in mapItems){
+
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = item.placemark.coordinate;
+        annotation.title      = item.name;
+        annotation.subtitle   = item.placemark.title;
         [self.mapView addAnnotation:annotation];
         
-        // we have only one annotation, select it's callout
-        [self.mapView selectAnnotation:[self.mapView.annotations objectAtIndex:0] animated:YES];
-        
-        // center the region around this map item's coordinate
-        self.mapView.centerCoordinate = mapItem.placemark.coordinate;
+        [self.annotations addObject:annotation];
     }
-    else
-    {
-        self.title = @"All Places";
-        
-        // add all the found annotations to the map
-        for (MKMapItem *item in self.mapItemList)
-        {
-            PlaceAnnotation *annotation = [[PlaceAnnotation alloc] init];
-            annotation.coordinate = item.placemark.location.coordinate;
-            annotation.title = item.name;
-            annotation.url = item.url;
-            [self.mapView addAnnotation:annotation];
-        }
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [self.mapView removeAnnotations:self.mapView.annotations];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -234,23 +270,11 @@
         return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-
-#pragma mark - MKMapViewDelegate
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+- (void) viewDidAppear:(BOOL)animated
 {
-    MKPinAnnotationView *annotationView = nil;
-    if ([annotation isKindOfClass:[PlaceAnnotation class]])
-    {
-        annotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-        if (annotationView == nil)
-        {
-            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-            annotationView.canShowCallout = YES;
-            annotationView.animatesDrop = YES;
-        }
-    }
-    return annotationView;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapItemsUpdated) name:@"Map Items" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultTableViewControllerUpdated) name:@"Map Items" object:nil];
+
 }
 
 @end
