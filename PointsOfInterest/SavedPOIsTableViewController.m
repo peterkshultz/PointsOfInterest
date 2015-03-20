@@ -72,8 +72,16 @@
     
     [starButton addTarget:self action:@selector(starButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
     
+    [SearchResultsTableViewController fillStarIfNecessary:starButton MapItem:mapItem];
+
     
     return cell;
+}
+
+-(void) starButtonClicked:(id) sender{
+    
+    [SearchResultsTableViewController starClicked:sender tableView:self.tableView];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning

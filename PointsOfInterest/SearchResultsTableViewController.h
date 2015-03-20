@@ -12,5 +12,8 @@
 @interface SearchResultsTableViewController : UITableViewController
 
 - (void) initWithString:(NSString*) searchString andMapView:(MKMapView*) mapView;
++ (void) fillStarIfNecessary: (UIButton*) star MapItem:(MKMapItem*) mapItem;
++ (void) starClicked: (id) sender tableView: (UITableView*) tableView;
+
 
 @end

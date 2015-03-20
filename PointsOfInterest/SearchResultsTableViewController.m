@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "DataSource.h"
 #import "TableViewCell.h"
+#import "DetailViewController.h"
 
 @interface SearchResultsTableViewController ()
 
@@ -88,17 +89,39 @@
     UIButton* starButton = (UIButton*)[cell viewWithTag:4];
     [starButton addTarget:self action:@selector(starButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
     
+    [SearchResultsTableViewController fillStarIfNecessary:starButton MapItem:mapItem];
+    
     //More work to be done here--we want more than just the item name to be displayed.
     
     return cell;
 }
 
++ (void) fillStarIfNecessary: (UIButton*) star MapItem:(MKMapItem*) mapItem{
+    
+    if ([[DataSource sharedInstance].savedPOIs containsObject:mapItem])
+    {
+        [SearchResultsTableViewController fillStar:true Button:star];
+    }
+    
+    else
+    {
+        [SearchResultsTableViewController fillStar:false Button:star];
+    }
+    
+}
+
 - (void) starButtonClicked:(id) sender{
+    
+    [SearchResultsTableViewController starClicked:sender tableView: self.tableView];
+    
+}
+
++(void) starClicked: (id) sender tableView: (UITableView*) tableView{
     
     UIButton* starButton = (UIButton*) sender;
     UITableViewCell* cell = (UITableViewCell*) starButton.superview.superview;
     
-    NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath* indexPath = [tableView indexPathForCell:cell];
     
     MKMapItem *selectedMapItem = [[DataSource sharedInstance].searchResponse.mapItems objectAtIndex:indexPath.row];
     
@@ -108,29 +131,44 @@
     
     if ([unfilledData isEqual:currentBackgroundData])
     {
-        UIImage* filledStar = [UIImage imageNamed:@"filledStarEdited.png"];
-        
-        [starButton setBackgroundImage:filledStar forState:UIControlStateNormal];
-        
         //SAVE TO DISK
         [[DataSource sharedInstance].savedPOIs addObject:selectedMapItem];
+        
+        [SearchResultsTableViewController fillStar:true Button:starButton];
     }
     
     else if ([filledData isEqual:currentBackgroundData])
     {
-        UIImage* unfilledStar = [UIImage imageNamed:@"unfilledStarEdited.png"];
-        
-        [starButton setBackgroundImage:unfilledStar forState:UIControlStateNormal];
-        
         
         //UNSAVE TO DISK
         [[DataSource sharedInstance].savedPOIs removeObject:selectedMapItem];
+        [SearchResultsTableViewController fillStar:false Button:starButton];
     }
     
     
     [[DataSource sharedInstance] saveToDisk];
     
     NSLog(@"hello");
+    
+    
+}
+
++(void) fillStar:(bool) filled Button: (UIButton*) starButton{
+    
+    if (filled)
+    {
+        UIImage* filledStar = [UIImage imageNamed:@"filledStarEdited.png"];
+        
+        [starButton setBackgroundImage:filledStar forState:UIControlStateNormal];
+    }
+    
+    else
+    {
+        UIImage* unfilledStar = [UIImage imageNamed:@"unfilledStarEdited.png"];
+        
+        [starButton setBackgroundImage:unfilledStar forState:UIControlStateNormal];
+        
+    }
     
 }
 
@@ -140,6 +178,13 @@
 {
 
     NSIndexPath *selectedItem = [self.tableView indexPathForSelectedRow];
+    
+    DetailViewController* detailViewController = [[DetailViewController alloc] init];
+    
+    
+    [self presentViewController:detailViewController animated:true completion:^{
+        
+    }];
 
     //More work to be done here
 }
