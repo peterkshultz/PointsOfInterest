@@ -9,13 +9,14 @@
 #import "SearchResultsTableViewController.h"
 #import "MapViewController.h"
 #import "DataSource.h"
+#import "TableViewCell.h"
 
 @interface SearchResultsTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray* items;
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSString* searchString;
-@property (nonatomic, strong) NSArray* mapItems;
+//@property (nonatomic, strong) NSArray* mapItems;
 @property (nonatomic, strong) NSString *kCellIdentifier;
 
 
@@ -29,14 +30,15 @@
 {
     self.searchString = searchString;
     self.mapView = mapView;
-    self.mapItems = [DataSource sharedInstance].searchResponse.mapItems;
+//    self.tableView.delegaste = self;
+//    self.mapItems = [DataSource sharedInstance].searchResponse.mapItems;
 
-    for (MKMapItem* item in self.mapItems)
-    {
-        
-        NSLog(@"%@", item.name);
-
-    }
+//    for (MKMapItem* item in self.mapItems)
+//    {
+//        
+//        NSLog(@"%@", item.name);
+//
+//    }
 }
 
 
@@ -49,53 +51,102 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [self.tableView reloadData];
+    [self.tableView setFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         
 }
 
 - (void) viewDidLoad
 {
+    self.tableView.delegate = self;
+//    [self.tableView registerClass:[TableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cellIdentifier"];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //Returning zero for whatever reason
-    return self.mapItems.count;
+    NSLog(@"%i", [DataSource sharedInstance].searchResponse.mapItems.count);
+    return [DataSource sharedInstance].searchResponse.mapItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"In cellForRow");
+    
     self.kCellIdentifier = @"cellIdentifier";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.kCellIdentifier forIndexPath:indexPath];
-    
-//    MKMapItem *mapItem = [self.response.mapItems objectAtIndex:indexPath.row];
-//    cell.textLabel.text = mapItem.name;
-    
-    
-    for (MKMapItem* item in self.mapItems){
         
-        cell.textLabel.text = item.name;
-        NSLog(@"In cellForRow");
-    }
-
+    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.kCellIdentifier forIndexPath:indexPath];
     
-    cell.textLabel.text=[self.mapItems objectAtIndex:indexPath.row];
-
+    UILabel* label = (UILabel*)[cell viewWithTag:1];
+    UILabel* titleLabel = (UILabel*)[cell viewWithTag:2];
+    
+    MKMapItem *mapItem = [[DataSource sharedInstance].searchResponse.mapItems objectAtIndex:indexPath.row];
+    label.text = mapItem.placemark.title;
+    titleLabel.text = mapItem.name;
+    
+    UIButton* starButton = (UIButton*)[cell viewWithTag:4];
+    [starButton addTarget:self action:@selector(starButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
+    
+    //More work to be done here--we want more than just the item name to be displayed.
     
     return cell;
 }
 
+- (void) starButtonClicked:(id) sender{
+    
+    UIButton* starButton = (UIButton*) sender;
+    UITableViewCell* cell = (UITableViewCell*) starButton.superview.superview;
+    
+    NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+    
+    MKMapItem *selectedMapItem = [[DataSource sharedInstance].searchResponse.mapItems objectAtIndex:indexPath.row];
+    
+    NSData* unfilledData = UIImagePNGRepresentation([UIImage imageNamed:@"unfilledStarEdited.png"]);
+    NSData* filledData = UIImagePNGRepresentation([UIImage imageNamed:@"filledStarEdited.png"]);
+    NSData* currentBackgroundData = UIImagePNGRepresentation(starButton.currentBackgroundImage);
+    
+    if ([unfilledData isEqual:currentBackgroundData])
+    {
+        UIImage* filledStar = [UIImage imageNamed:@"filledStarEdited.png"];
+        
+        [starButton setBackgroundImage:filledStar forState:UIControlStateNormal];
+        
+        //SAVE TO DISK
+        [[DataSource sharedInstance].savedPOIs addObject:selectedMapItem];
+    }
+    
+    else if ([filledData isEqual:currentBackgroundData])
+    {
+        UIImage* unfilledStar = [UIImage imageNamed:@"unfilledStarEdited.png"];
+        
+        [starButton setBackgroundImage:unfilledStar forState:UIControlStateNormal];
+        
+        
+        //UNSAVE TO DISK
+        [[DataSource sharedInstance].savedPOIs removeObject:selectedMapItem];
+    }
+    
+    
+    [[DataSource sharedInstance] saveToDisk];
+    
+    NSLog(@"hello");
+    
+}
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // pass the new bounding region to the map destination view controller
-//    self.mapViewController.boundingRegion = self.region;
-    
-    // pass the individual place to our map destination view controller
+
     NSIndexPath *selectedItem = [self.tableView indexPathForSelectedRow];
-//    self.mapViewController.mapItemList = [NSArray arrayWithObject:[self.response.mapItems objectAtIndex:selectedItem.row]];
-    
-//    [self.detailSegue perform];
+
+    //More work to be done here
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
 }
 
 @end

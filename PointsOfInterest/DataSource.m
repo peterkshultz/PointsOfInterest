@@ -43,6 +43,8 @@
             NSLog(@"Map Items: %@", response.mapItems);
             self.searchResponse = response;
             
+            NSArray* mapItems = response.mapItems;
+            
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"Map Items" object:nil];
         }
@@ -54,13 +56,55 @@
     [localSearch startWithCompletionHandler:completionHandler];
 }
 
-//- (void) saveToDisk{
+- (NSString*) pathForFilename:(NSString*) filename
+{
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths firstObject];
+    NSString* dataPath = [documentsDirectory stringByAppendingPathComponent:filename];
+    
+    return dataPath;
+}
+
+- (instancetype) init
+{
+    self = [super init];
+    
+    if (self)
+    {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString *fullPath = [self pathForFilename:NSStringFromSelector(@selector(savedPOIs))];
+                NSArray *storedPOIs = [NSKeyedUnarchiver unarchiveObjectWithFile:fullPath];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (storedPOIs.count > 0)
+                    {
+                        NSMutableArray *mutablePOIs = [storedPOIs mutableCopy];
+                        
+                        [self willChangeValueForKey:@"savedPOIs"];
+                        self.savedPOIs = mutablePOIs;
+                        [self didChangeValueForKey:@"savedPOIs"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"savedPOIsUpdated" object:nil userInfo:nil];
+                        
+
+                    }
+                    else{
+                        self.savedPOIs = [NSMutableArray new];
+                    }
+                    
+                });
+            });
+        }
+    
+    return self;
+}
+
+- (void) saveToDisk{
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSUInteger numberOfItemsToSave = MIN(self.mediaItems.count, 50);
-//        NSArray *mediaItemsToSave = [self.mediaItems subarrayWithRange:NSMakeRange(0, numberOfItemsToSave)];
 //        
-//        NSString *fullPath = [self pathForFilename:NSStringFromSelector(@selector(mediaItems))];
-//        NSData *mediaItemData = [NSKeyedArchiver archivedDataWithRootObject:mediaItemsToSave];
+//        
+//        
+//        NSString *fullPath = [self pathForFilename:NSStringFromSelector(@selector(savedPOIs))];
+//        NSData *mediaItemData = [NSKeyedArchiver archivedDataWithRootObject: self.savedPOIs];
 //        
 //        NSError *dataError;
 //        BOOL wroteSuccessfully = [mediaItemData writeToFile:fullPath options:NSDataWritingAtomic | NSDataWritingFileProtectionCompleteUnlessOpen error:&dataError];
@@ -69,6 +113,6 @@
 //            NSLog(@"Couldn't write file: %@", dataError);
 //        }
 //    });
-//}
+}
 
 @end

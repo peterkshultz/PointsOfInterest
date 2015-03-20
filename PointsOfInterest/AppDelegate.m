@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MapViewController.h"
 #import "SearchResultsTableViewController.h"
+#import "SavedPOIsTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,14 +26,16 @@
 
     MapViewController* mapVC = [[MapViewController alloc] init];
     SearchResultsTableViewController* searchTableVC = [[SearchResultsTableViewController alloc] init];
+    SavedPOIsTableViewController* savedResultsTableVC = [[SavedPOIsTableViewController alloc] init];
 
     
     UITabBarController* tabVC = [[UITabBarController alloc] init];
     
     [mapVC setTitle:@"Map"];
     [searchTableVC setTitle:@"Search Table"];
+    [savedResultsTableVC setTitle:@"Saved POIs"];
     
-    [tabVC setViewControllers:@[mapVC, searchTableVC] animated:YES];
+    [tabVC setViewControllers:@[mapVC, searchTableVC, savedResultsTableVC] animated:YES];
     
     self.window.rootViewController = tabVC;
     

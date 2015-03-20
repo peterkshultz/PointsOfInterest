@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell autoresizesSubviews="NO" contentMode="center" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" rowHeight="50" id="Y8T-KU-Z4m" customClass="TableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y8T-KU-Z4m" id="gEp-e7-M9B">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3443 Stevens Creek Blvd, San Jose, CA  95117-1043, United States" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luH-IS-mB4">
+                        <rect key="frame" x="8" y="26" width="274" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="122" id="Qrb-gf-3R1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qrb-gf-3R1"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Title of Point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GxC-CZ-m3t">
+                        <rect key="frame" x="8" y="14" width="87" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCq-6Y-g7o">
+                        <rect key="frame" x="290" y="14" width="20" height="22"/>
+                        <state key="normal" backgroundImage="unfilledStarEdited.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" image="filledStarEdited.png"/>
+                        <connections>
+                            <action selector="starTouched:" destination="Y8T-KU-Z4m" eventType="touchUpInside" id="UVW-GL-el6"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="luH-IS-mB4" secondAttribute="trailing" constant="10" id="6Lr-8S-zBQ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="luH-IS-mB4" secondAttribute="bottom" constant="-9" id="BdP-Op-uXH"/>
+                    <constraint firstItem="luH-IS-mB4" firstAttribute="leading" secondItem="gEp-e7-M9B" secondAttribute="leadingMargin" id="LgQ-CR-s6E"/>
+                    <constraint firstItem="luH-IS-mB4" firstAttribute="leading" secondItem="GxC-CZ-m3t" secondAttribute="leading" id="UFF-0E-MBu"/>
+                    <constraint firstItem="luH-IS-mB4" firstAttribute="top" secondItem="gEp-e7-M9B" secondAttribute="topMargin" constant="3" id="aY6-uS-c0E"/>
+                    <constraint firstItem="luH-IS-mB4" firstAttribute="top" secondItem="gEp-e7-M9B" secondAttribute="topMargin" constant="16" id="hUo-9l-9VX"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="aY6-uS-c0E"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="163" y="159.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="filledStarEdited.png" width="20" height="20"/>
+        <image name="unfilledStarEdited.png" width="20" height="20"/>
+    </resources>
+</document>

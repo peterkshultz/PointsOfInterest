@@ -10,6 +10,12 @@
 		D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01C95A21A85629B00DDCABC /* Launch Screen.xib */; };
 		D0301BB11A97B0D1009434E7 /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */; };
 		D0301BB41A97CB1C009434E7 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0301BB31A97CB1C009434E7 /* DataSource.m */; };
+		D030AC531AA220C600D69FEE /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D030AC521AA220C500D69FEE /* TableViewCell.xib */; };
+		D030AC561AA227A300D69FEE /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D030AC551AA227A300D69FEE /* TableViewCell.m */; };
+		D030AC5E1AA613AC00D69FEE /* unfilledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */; };
+		D030AC5F1AA613AC00D69FEE /* filledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */; };
+		D031E7FA1AB8D2E600004302 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031E7F81AB8D2E600004302 /* DetailViewController.m */; };
+		D031E7FB1AB8D2E600004302 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D031E7F91AB8D2E600004302 /* DetailViewController.xib */; };
 		D03EEF541A82F5CF00444D78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF531A82F5CF00444D78 /* main.m */; };
 		D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF561A82F5CF00444D78 /* AppDelegate.m */; };
 		D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF591A82F5CF00444D78 /* ViewController.m */; };
@@ -17,6 +23,7 @@
 		D03EEF6E1A82F5D000444D78 /* PointsOfInterestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF6D1A82F5D000444D78 /* PointsOfInterestTests.m */; };
 		D03EEF781A82F8BC00444D78 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03EEF771A82F8BC00444D78 /* MapKit.framework */; };
 		D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF7A1A82FA2700444D78 /* MapViewController.m */; };
+		D0D284E51AAA41D7004116D8 /* SavedPOIsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D284E41AAA41D7004116D8 /* SavedPOIsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +42,14 @@
 		D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		D0301BB21A97CB1C009434E7 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		D0301BB31A97CB1C009434E7 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		D030AC521AA220C500D69FEE /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		D030AC541AA227A300D69FEE /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		D030AC551AA227A300D69FEE /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unfilledStarEdited.png; sourceTree = "<group>"; };
+		D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStarEdited.png; sourceTree = "<group>"; };
+		D031E7F71AB8D2E600004302 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		D031E7F81AB8D2E600004302 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		D031E7F91AB8D2E600004302 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		D03EEF4E1A82F5CF00444D78 /* PointsOfInterest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsOfInterest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D03EEF521A82F5CF00444D78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03EEF531A82F5CF00444D78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,6 +64,8 @@
 		D03EEF771A82F8BC00444D78 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D03EEF791A82FA2700444D78 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		D03EEF7A1A82FA2700444D78 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		D0D284E31AAA41D7004116D8 /* SavedPOIsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedPOIsTableViewController.h; sourceTree = "<group>"; };
+		D0D284E41AAA41D7004116D8 /* SavedPOIsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedPOIsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,19 +109,29 @@
 		D03EEF501A82F5CF00444D78 /* PointsOfInterest */ = {
 			isa = PBXGroup;
 			children = (
+				D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */,
+				D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */,
 				D03EEF551A82F5CF00444D78 /* AppDelegate.h */,
 				D03EEF561A82F5CF00444D78 /* AppDelegate.m */,
+				D03EEF581A82F5CF00444D78 /* ViewController.h */,
+				D03EEF591A82F5CF00444D78 /* ViewController.m */,
 				D03EEF791A82FA2700444D78 /* MapViewController.h */,
 				D03EEF7A1A82FA2700444D78 /* MapViewController.m */,
 				D0301BB21A97CB1C009434E7 /* DataSource.h */,
 				D0301BB31A97CB1C009434E7 /* DataSource.m */,
 				D0301BAF1A97B0D1009434E7 /* SearchResultsTableViewController.h */,
 				D0301BB01A97B0D1009434E7 /* SearchResultsTableViewController.m */,
-				D03EEF581A82F5CF00444D78 /* ViewController.h */,
-				D03EEF591A82F5CF00444D78 /* ViewController.m */,
-				D03EEF5E1A82F5CF00444D78 /* Images.xcassets */,
-				D03EEF511A82F5CF00444D78 /* Supporting Files */,
+				D0D284E31AAA41D7004116D8 /* SavedPOIsTableViewController.h */,
+				D0D284E41AAA41D7004116D8 /* SavedPOIsTableViewController.m */,
+				D031E7F71AB8D2E600004302 /* DetailViewController.h */,
+				D031E7F81AB8D2E600004302 /* DetailViewController.m */,
+				D031E7F91AB8D2E600004302 /* DetailViewController.xib */,
+				D030AC521AA220C500D69FEE /* TableViewCell.xib */,
+				D030AC541AA227A300D69FEE /* TableViewCell.h */,
+				D030AC551AA227A300D69FEE /* TableViewCell.m */,
 				D01C95A21A85629B00DDCABC /* Launch Screen.xib */,
+				D03EEF511A82F5CF00444D78 /* Supporting Files */,
+				D03EEF5E1A82F5CF00444D78 /* Images.xcassets */,
 			);
 			path = PointsOfInterest;
 			sourceTree = "<group>";
@@ -220,7 +247,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D030AC5F1AA613AC00D69FEE /* filledStarEdited.png in Resources */,
+				D031E7FB1AB8D2E600004302 /* DetailViewController.xib in Resources */,
 				D03EEF5F1A82F5CF00444D78 /* Images.xcassets in Resources */,
+				D030AC5E1AA613AC00D69FEE /* unfilledStarEdited.png in Resources */,
+				D030AC531AA220C600D69FEE /* TableViewCell.xib in Resources */,
 				D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,11 +270,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D030AC561AA227A300D69FEE /* TableViewCell.m in Sources */,
 				D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */,
+				D031E7FA1AB8D2E600004302 /* DetailViewController.m in Sources */,
 				D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */,
 				D03EEF541A82F5CF00444D78 /* main.m in Sources */,
 				D0301BB11A97B0D1009434E7 /* SearchResultsTableViewController.m in Sources */,
 				D03EEF7B1A82FA2700444D78 /* MapViewController.m in Sources */,
+				D0D284E51AAA41D7004116D8 /* SavedPOIsTableViewController.m in Sources */,
 				D0301BB41A97CB1C009434E7 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
