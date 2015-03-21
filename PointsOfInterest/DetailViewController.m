@@ -11,6 +11,7 @@
 @interface DetailViewController ()
 
 @property MKMapItem* selectedMapItem;
+@property UIButton* backButton;
 
 @end
 
@@ -34,10 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {

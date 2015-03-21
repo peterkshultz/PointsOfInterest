@@ -25,7 +25,7 @@
 
 @implementation SearchResultsTableViewController
 
-#pragma mark - UITableView delegate methods
+#pragma mark - Initialization
 
 - (void) initWithString:(NSString*) searchString andMapView:(MKMapView*) mapView
 {
@@ -34,14 +34,10 @@
     self.searchBar.text = searchString;
 }
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
+#pragma mark - View methods
 
 
--(void) viewDidAppear:(BOOL)animated
+- (void) viewDidAppear:(BOOL)animated
 {
     [self.tableView reloadData];
     [self.tableView setFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height + self.searchBar.frame.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -59,6 +55,13 @@
 
 }
 
+#pragma mark - UITableView delegate methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [DataSource sharedInstance].searchResponse.mapItems.count;
@@ -67,7 +70,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.kCellIdentifier = @"cellIdentifier";
-        
+    
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.kCellIdentifier forIndexPath:indexPath];
     
     UILabel* label = (UILabel*)[cell viewWithTag:1];
@@ -81,11 +84,36 @@
     [starButton addTarget:self action:@selector(starButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
     
     [SearchResultsTableViewController fillStarIfNecessary:starButton MapItem:mapItem];
-        
+    
     return cell;
 }
 
-+ (void) fillStarIfNecessary: (UIButton*) star MapItem:(MKMapItem*) mapItem{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSIndexPath *selectedItem = [self.tableView indexPathForSelectedRow];
+    
+    DetailViewController* detailViewController = [[DetailViewController alloc] init];
+    
+    
+    [self presentViewController:detailViewController animated:true completion:^{
+        
+    }];
+    
+    //More work to be done here
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+
+#pragma mark - Star abstractions
+
++ (void) fillStarIfNecessary: (UIButton*) star MapItem:(MKMapItem*) mapItem
+{
     
     if ([[DataSource sharedInstance].savedPOIs containsObject:mapItem])
     {
@@ -99,13 +127,15 @@
     
 }
 
-- (void) starButtonClicked:(id) sender{
+- (void) starButtonClicked:(id) sender
+{
     
     [SearchResultsTableViewController starClicked:sender tableView: self.tableView];
     
 }
 
-+(void) starClicked: (id) sender tableView: (UITableView*) tableView{
++ (void) starClicked: (id) sender tableView: (UITableView*) tableView
+{
     
     UIButton* starButton = (UIButton*) sender;
     UITableViewCell* cell = (UITableViewCell*) starButton.superview.superview;
@@ -139,7 +169,8 @@
     
 }
 
-+(void) fillStar:(bool) filled Button: (UIButton*) starButton{
++(void) fillStar:(bool) filled Button: (UIButton*) starButton
+{
     
     if (filled)
     {
@@ -156,28 +187,6 @@
         
     }
     
-}
-
-
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    NSIndexPath *selectedItem = [self.tableView indexPathForSelectedRow];
-    
-    DetailViewController* detailViewController = [[DetailViewController alloc] init];
-    
-    
-    [self presentViewController:detailViewController animated:true completion:^{
-        
-    }];
-
-    //More work to be done here
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
 }
 
 @end
