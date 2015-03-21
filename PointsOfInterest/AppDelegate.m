@@ -20,32 +20,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*To add a map programmatically, create an instance of the MKMapView class, initialize it using the initWithFrame: method, and then add it as a subview to your window or view hierarchy. */
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+    
+    //Declare and initialize necessary view controllers (and tab controller)
     MapViewController* mapVC = [[MapViewController alloc] init];
     SearchResultsTableViewController* searchTableVC = [[SearchResultsTableViewController alloc] init];
     SavedPOIsTableViewController* savedResultsTableVC = [[SavedPOIsTableViewController alloc] init];
-
-    
     UITabBarController* tabVC = [[UITabBarController alloc] init];
     
-    [mapVC setTitle:@"Map"];
-    [searchTableVC setTitle:@"Search Table"];
-    [savedResultsTableVC setTitle:@"Saved POIs"];
+    //Set titles of each tab
+    [mapVC setTitle:@"Map View"];
+    [searchTableVC setTitle:@"Search View"];
+    [savedResultsTableVC setTitle:@"Saved Items"];
     
+    //Add them to tabVC
     [tabVC setViewControllers:@[mapVC, searchTableVC, savedResultsTableVC] animated:YES];
     
-    self.window.rootViewController = tabVC;
     
+    //Declare and initialize tab bar items
+    UITabBarItem* mapVCTabBar = [tabVC.tabBar.items objectAtIndex:0];
+    UITabBarItem* searchTableVCTabBar = [tabVC.tabBar.items objectAtIndex:1];
+    UITabBarItem* savedResultsTableVCTabItem = [tabVC.tabBar.items objectAtIndex:2];
+    
+    
+    //Set images of tab bar items
+    [mapVCTabBar setImage:[UIImage imageNamed:@"pinIcon.png"]];
+    [searchTableVCTabBar setImage:[UIImage imageNamed:@"listView.png"]];
+    [savedResultsTableVCTabItem setImage:[UIImage imageNamed:@"unfilledStarEdited.png"]];
+
+    
+    
+    //Obligatory root code
+    self.window.rootViewController = tabVC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    
-    
-    NSLog(@"Did finish launching");
-
     return YES;
 }
 

@@ -108,7 +108,6 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"%i", [DataSource sharedInstance].savedPOIs.count);
     return [DataSource sharedInstance].savedPOIs.count;
 }
 

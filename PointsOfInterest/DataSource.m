@@ -39,8 +39,10 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }
-        else{
-            NSLog(@"Map Items: %@", response.mapItems);
+        
+        else
+        {
+
             self.searchResponse = response;
             
             NSArray* mapItems = response.mapItems;

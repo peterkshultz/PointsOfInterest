@@ -69,6 +69,8 @@
 
 @implementation MapViewController
 
+#pragma mark - Search and map methods
+
 - (void)startSearch:(NSString *)searchString
 {
     self.searchBarString = searchString;
@@ -78,15 +80,11 @@
         [self.localSearch cancel];
     }
     
-    // confine the map search area to the user's current location
+
     MKCoordinateRegion newRegion;
     newRegion.center.latitude = self.previousLocation.latitude;
     newRegion.center.longitude = self.previousLocation.longitude;
     
-    // setup the area spanned by the map region:
-    // we use the delta values to indicate the desired zoom level of the map,
-    //      (smaller delta values corresponding to a higher zoom level)
-    //
     newRegion.span.latitudeDelta = 0.112872;
     newRegion.span.longitudeDelta = 0.109863;
     
@@ -95,9 +93,42 @@
     
 }
 
-- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+- (void) searchResultTableViewControllerUpdated
+{
+    SearchResultsTableViewController* searchResultsTVC = [[SearchResultsTableViewController alloc] init];
     
-    NSLog(@"Search button clicked!");
+    self.annotations = [NSMutableArray new];
+    
+    [searchResultsTVC initWithString:self.searchBarString andMapView:self.mapView];
+}
+
+- (void) mapItemsUpdated
+{
+    //Remove annotations
+    for (int i = 0; i < [self.mapView.annotations count]; i++)
+    {
+            [self.mapView removeAnnotation:[self.mapView.annotations objectAtIndex:i]];
+    }
+    
+    NSArray* mapItems = [DataSource sharedInstance].searchResponse.mapItems;
+    self.annotations = [NSMutableArray new];
+    
+    
+    
+    for (MKMapItem* item in mapItems)
+    {
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = item.placemark.coordinate;
+        annotation.title      = item.name;
+        annotation.subtitle   = item.placemark.title;
+        [self.mapView addAnnotation:annotation];
+        
+        [self.annotations addObject:annotation];
+    }
+}
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
     
     [searchBar resignFirstResponder];
     
@@ -134,6 +165,16 @@
     }
 }
 
+#pragma mark - View methods
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapItemsUpdated) name:@"Map Items" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultTableViewControllerUpdated) name:@"Map Items" object:nil];
+    
+}
+
+
 
 - (void) viewWillLayoutSubviews
 {
@@ -154,14 +195,12 @@
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.delegate = self;
     self.searchBar.searchBarStyle = UISearchBarStyleProminent;
+    self.searchBar.placeholder = @"Search for anything your heart desires";
     [self.view addSubview:self.searchBar];
     
-    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
-    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [self.locationManager requestWhenInUseAuthorization];
-        [self.locationManager requestAlwaysAuthorization];
-    }
-
+    
+    //Requesting always location
+    [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startUpdatingLocation];
     
 }
@@ -175,8 +214,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-   // NSLog(@"%@", [locations lastObject]);
- 
    [self zoomToUserLocation:self.mapView.userLocation];
 }
 
@@ -231,36 +268,7 @@
     
 }
 
-#pragma mark - supportedInterfaceOrientations, viewDidAppear
-
-- (void) searchResultTableViewControllerUpdated
-{
-    SearchResultsTableViewController* searchResultsTVC = [[SearchResultsTableViewController alloc] init];
-    
-    self.annotations = [NSMutableArray new];
-    
-    [searchResultsTVC initWithString:self.searchBarString andMapView:self.mapView];
-}
-
-- (void) mapItemsUpdated
-{
-    NSArray* mapItems = [DataSource sharedInstance].searchResponse.mapItems;
-    
-    [self.mapView removeAnnotations:self.annotations];
-    
-    self.annotations = [NSMutableArray new];
-    
-    for (MKMapItem* item in mapItems){
-
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-        annotation.coordinate = item.placemark.coordinate;
-        annotation.title      = item.name;
-        annotation.subtitle   = item.placemark.title;
-        [self.mapView addAnnotation:annotation];
-        
-        [self.annotations addObject:annotation];
-    }
-}
+#pragma mark - supportedInterfaceOrientations
 
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -268,13 +276,6 @@
         return UIInterfaceOrientationMaskAll;
     else
         return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mapItemsUpdated) name:@"Map Items" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResultTableViewControllerUpdated) name:@"Map Items" object:nil];
-
 }
 
 @end

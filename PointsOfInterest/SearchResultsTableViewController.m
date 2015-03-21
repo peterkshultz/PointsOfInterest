@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSMutableArray* items;
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) NSString* searchString;
-//@property (nonatomic, strong) NSArray* mapItems;
+@property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSString *kCellIdentifier;
 
 
@@ -31,15 +31,7 @@
 {
     self.searchString = searchString;
     self.mapView = mapView;
-//    self.tableView.delegaste = self;
-//    self.mapItems = [DataSource sharedInstance].searchResponse.mapItems;
-
-//    for (MKMapItem* item in self.mapItems)
-//    {
-//        
-//        NSLog(@"%@", item.name);
-//
-//    }
+    self.searchBar.text = searchString;
 }
 
 
@@ -52,14 +44,16 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [self.tableView reloadData];
-    [self.tableView setFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        
+    [self.tableView setFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height + self.searchBar.frame.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
 }
 
 - (void) viewDidLoad
 {
     self.tableView.delegate = self;
-//    [self.tableView registerClass:[TableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
+    
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.searchBarStyle = UISearchBarStyleProminent;
+    [self.view addSubview:self.searchBar];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cellIdentifier"];
 
@@ -67,14 +61,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%i", [DataSource sharedInstance].searchResponse.mapItems.count);
     return [DataSource sharedInstance].searchResponse.mapItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"In cellForRow");
-    
     self.kCellIdentifier = @"cellIdentifier";
         
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.kCellIdentifier forIndexPath:indexPath];
@@ -90,9 +81,7 @@
     [starButton addTarget:self action:@selector(starButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
     
     [SearchResultsTableViewController fillStarIfNecessary:starButton MapItem:mapItem];
-    
-    //More work to be done here--we want more than just the item name to be displayed.
-    
+        
     return cell;
 }
 
@@ -147,9 +136,6 @@
     
     
     [[DataSource sharedInstance] saveToDisk];
-    
-    NSLog(@"hello");
-    
     
 }
 

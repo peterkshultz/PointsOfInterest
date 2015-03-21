@@ -12,9 +12,7 @@
 @interface DataSource : NSObject
 
 +(instancetype) sharedInstance;
-
 - (void) performMKLocalSearch: (NSString*) searchString withRegion: (MKCoordinateRegion) region;
-
 - (void) saveToDisk;
 
 

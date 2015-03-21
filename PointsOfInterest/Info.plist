@@ -9,9 +9,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location is needed to determine where you are.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location is needed to determine where you are.</string>
+	<string>Your location is needed to tell you when you approach awesome places.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

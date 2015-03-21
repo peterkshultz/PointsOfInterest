@@ -12,10 +12,12 @@
 		D0301BB41A97CB1C009434E7 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0301BB31A97CB1C009434E7 /* DataSource.m */; };
 		D030AC531AA220C600D69FEE /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D030AC521AA220C500D69FEE /* TableViewCell.xib */; };
 		D030AC561AA227A300D69FEE /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D030AC551AA227A300D69FEE /* TableViewCell.m */; };
-		D030AC5E1AA613AC00D69FEE /* unfilledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */; };
-		D030AC5F1AA613AC00D69FEE /* filledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */; };
 		D031E7FA1AB8D2E600004302 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D031E7F81AB8D2E600004302 /* DetailViewController.m */; };
 		D031E7FB1AB8D2E600004302 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D031E7F91AB8D2E600004302 /* DetailViewController.xib */; };
+		D031E7FD1ABCE47600004302 /* filledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D031E7FC1ABCE47600004302 /* filledStarEdited.png */; };
+		D031E7FF1ABCE47E00004302 /* unfilledStarEdited.png in Resources */ = {isa = PBXBuildFile; fileRef = D031E7FE1ABCE47E00004302 /* unfilledStarEdited.png */; };
+		D031E8031ABD2CAA00004302 /* pinIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D031E8021ABD2CAA00004302 /* pinIcon.png */; };
+		D031E8051ABD2E3900004302 /* listView.png in Resources */ = {isa = PBXBuildFile; fileRef = D031E8041ABD2E3900004302 /* listView.png */; };
 		D03EEF541A82F5CF00444D78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF531A82F5CF00444D78 /* main.m */; };
 		D03EEF571A82F5CF00444D78 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF561A82F5CF00444D78 /* AppDelegate.m */; };
 		D03EEF5A1A82F5CF00444D78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03EEF591A82F5CF00444D78 /* ViewController.m */; };
@@ -45,11 +47,13 @@
 		D030AC521AA220C500D69FEE /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		D030AC541AA227A300D69FEE /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		D030AC551AA227A300D69FEE /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
-		D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unfilledStarEdited.png; sourceTree = "<group>"; };
-		D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStarEdited.png; sourceTree = "<group>"; };
 		D031E7F71AB8D2E600004302 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		D031E7F81AB8D2E600004302 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		D031E7F91AB8D2E600004302 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		D031E7FC1ABCE47600004302 /* filledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filledStarEdited.png; sourceTree = "<group>"; };
+		D031E7FE1ABCE47E00004302 /* unfilledStarEdited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unfilledStarEdited.png; sourceTree = "<group>"; };
+		D031E8021ABD2CAA00004302 /* pinIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinIcon.png; sourceTree = "<group>"; };
+		D031E8041ABD2E3900004302 /* listView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listView.png; sourceTree = "<group>"; };
 		D03EEF4E1A82F5CF00444D78 /* PointsOfInterest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PointsOfInterest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D03EEF521A82F5CF00444D78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03EEF531A82F5CF00444D78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,8 +113,10 @@
 		D03EEF501A82F5CF00444D78 /* PointsOfInterest */ = {
 			isa = PBXGroup;
 			children = (
-				D030AC5C1AA613AC00D69FEE /* unfilledStarEdited.png */,
-				D030AC5D1AA613AC00D69FEE /* filledStarEdited.png */,
+				D031E8021ABD2CAA00004302 /* pinIcon.png */,
+				D031E8041ABD2E3900004302 /* listView.png */,
+				D031E7FC1ABCE47600004302 /* filledStarEdited.png */,
+				D031E7FE1ABCE47E00004302 /* unfilledStarEdited.png */,
 				D03EEF551A82F5CF00444D78 /* AppDelegate.h */,
 				D03EEF561A82F5CF00444D78 /* AppDelegate.m */,
 				D03EEF581A82F5CF00444D78 /* ViewController.h */,
@@ -247,11 +253,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D030AC5F1AA613AC00D69FEE /* filledStarEdited.png in Resources */,
+				D031E8031ABD2CAA00004302 /* pinIcon.png in Resources */,
+				D031E7FD1ABCE47600004302 /* filledStarEdited.png in Resources */,
 				D031E7FB1AB8D2E600004302 /* DetailViewController.xib in Resources */,
 				D03EEF5F1A82F5CF00444D78 /* Images.xcassets in Resources */,
-				D030AC5E1AA613AC00D69FEE /* unfilledStarEdited.png in Resources */,
+				D031E7FF1ABCE47E00004302 /* unfilledStarEdited.png in Resources */,
 				D030AC531AA220C600D69FEE /* TableViewCell.xib in Resources */,
+				D031E8051ABD2E3900004302 /* listView.png in Resources */,
 				D01C95A31A85629B00DDCABC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
